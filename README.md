@@ -12,7 +12,7 @@ Internal smoke-and-mirrors preview for the Velocity concept — three demo forma
 | `index.html` | Landing — the three demo options as cards |
 | `option-1.html` | **Scripted wizard click-through.** Full 5-step wizard with fake streaming. Best for "feels like a product" demos. |
 | `option-2.html` | **Split-screen race.** Big 4 timeline vs Velocity, same clock. Best for exec / board pitch. |
-| `option-3.html` | **Long-scroll narrative.** Sarah's story, end-to-end. Best as a shareable URL. |
+| `option-3.html` | **Long-scroll narrative.** Anton's story, end-to-end. Best as a shareable URL. |
 | `pdf-sample.html` | The "exported" PDF report. Linked from options 1 and 3. |
 | `shared.css` / `shared.js` | Common styles, fake streaming, password gate, Helios Robotics fixture data. |
 
@@ -27,5 +27,5 @@ The password gate (`BORB`) is intentionally soft — a `sessionStorage` flag, cl
 All names are anonymized:
 - "Auditborb" / "Velocity" instead of the real company / product
 - "Helios Robotics" is a fictional Series D customer
-- "Sarah Chen" is a fictional Controller
+- "Anton Dam" is a fictional Controller
 - "Deloitte" is named generically as the customer's chosen auditor
