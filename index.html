@@ -26,7 +26,31 @@
     .scenario-axis { font-size: 8px; color: var(--muted); font-family: ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; padding: 4px 2px 0; }
     .scenario-analysis { font-size: 12px; line-height: 1.55; color: var(--ink); margin: 10px 0 0; }
     .scenario-analysis strong { color: var(--accent); font-weight: 600; }
+    /* Progressive disclosure */
+    .scenario-deep { margin-top: 10px; }
+    .scenario-deep summary { cursor: pointer; font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.03em; padding: 6px 8px; margin: 0 -8px; border-radius: 4px; list-style: none; user-select: none; display: flex; align-items: center; gap: 6px; }
+    .scenario-deep summary::-webkit-details-marker { display: none; }
+    .scenario-deep summary::before { content: '▸'; font-size: 10px; transition: transform 0.15s; }
+    .scenario-deep[open] summary::before { transform: rotate(90deg); }
+    .scenario-deep summary:hover { background: rgba(168, 49, 63, 0.06); }
+    .scenario-deep-body { margin-top: 10px; padding: 12px 14px; background: white; border: 1px solid var(--border); border-radius: 5px; }
+    .sd-section { margin-bottom: 14px; }
+    .sd-section:last-child { margin-bottom: 0; }
+    .sd-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .sd-text { font-size: 11.5px; line-height: 1.55; color: var(--ink); }
+    .sd-text code { font-family: ui-monospace, monospace; font-size: 11px; background: #f3f4f6; padding: 1px 5px; border-radius: 3px; }
+    .sd-list { font-size: 11.5px; line-height: 1.55; color: var(--ink); margin: 0; padding-left: 16px; }
+    .sd-list li { margin-bottom: 3px; }
+    .sd-list li:last-child { margin-bottom: 0; }
+    .sd-cost { display: inline-block; font-family: ui-monospace, monospace; font-size: 10px; background: #fef2f2; color: var(--accent); padding: 1px 6px; border-radius: 3px; }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.scenario-block').forEach(function(el) {
+        el.addEventListener('click', function(e) { e.stopPropagation(); });
+      });
+    });
+  </script>
 </head>
 <body>
   <header style="border-bottom: 1px solid var(--border); background: white;">
@@ -100,6 +124,39 @@
             </div>
             <div class="scenario-axis"><span>← platforms</span><span>applications →</span></div>
             <p class="scenario-analysis"><strong>Addresses Scenario 4 — AI-Native Newcomers.</strong> Proves in-house velocity matches the speed-shop pattern of a YC-funded SOX challenger. Reduces near-term case-for-acquisition while preserving M&A optionality.</p>
+            <details class="scenario-deep">
+              <summary>Full strategic analysis</summary>
+              <div class="scenario-deep-body">
+                <div class="sd-section">
+                  <div class="sd-label">Scenario story</div>
+                  <div class="sd-text">Vanta acquires an agentic SOX testing company by Q2 2027; a YC batch funds five GRC startups in one cohort. New entrants ship faster because they carry no legacy product, no enterprise sales overhead, and AI-native development practices.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What this prototype proves</div>
+                  <ul class="sd-list">
+                    <li>Optro can ship a "feels-like-a-real-product" customer surface at static-HTML cost — 5 wizard steps, fake-streamed agent content, end-to-end Helios narrative.</li>
+                    <li>The same 1-engineer / &lt;1-day pattern Midship-class teams use is reproducible in-house, not unique to YC newcomers.</li>
+                    <li>Cross-product Helios continuity across the family demonstrates portfolio coherence newcomers cannot match at acquisition.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What it does not address</div>
+                  <ul class="sd-list">
+                    <li>Real agent integration — fake streaming masks production engineering cost.</li>
+                    <li>Auth, billing, multi-tenancy — explicitly out of scope.</li>
+                    <li>Customer retention post-Velocity — wizard converts but does not prove durability.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Trigger conditions</div>
+                  <div class="sd-text">Win-rate against compliance-as-code drops below 60% for 2 consecutive quarters → pursue acquisition of a speed-shop. This prototype reduces near-term acquisition urgency by demonstrating in-house velocity is real.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Cost · win condition</div>
+                  <div class="sd-text"><span class="sd-cost">M&amp;A budget + Hg approval</span> for production version. Win = Optro maintains shipping velocity by importing it from outside, not building internally — and this artifact buys time before that call is forced.</div>
+                </div>
+              </div>
+            </details>
           </div>
           <div style="margin-top: auto; font-size: 12px; color: var(--muted); display: flex; gap: 16px;">
             <span><strong style="color: var(--ink);">Best for:</strong> sales demos</span>
@@ -147,6 +204,39 @@
             </div>
             <div class="scenario-axis"><span>← platforms</span><span>applications →</span></div>
             <p class="scenario-analysis"><strong>Addresses Scenario 4 — AI-Native Newcomers.</strong> Quantifies the speed delta against Big 4 advisory in one frame. Hg-shaped artifact: asset class is real, delta is visible, trigger conditions become legible.</p>
+            <details class="scenario-deep">
+              <summary>Full strategic analysis</summary>
+              <div class="scenario-deep-body">
+                <div class="sd-section">
+                  <div class="sd-label">Scenario story</div>
+                  <div class="sd-text">Same as Option 1 — AI-Native Newcomers (Vanta + YC speed-shops) out-ship incumbents on the AI-native customer surface. The race-against-Big-4 framing is the most quotable single artifact in the Velocity family.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What this prototype proves</div>
+                  <ul class="sd-list">
+                    <li>6-weeks-to-2-minutes speed delta visualized in one quotable frame.</li>
+                    <li>The Big 4 baseline (~$1-5M, 6-12 weeks) is the price umbrella under which any AI-native challenger operates — Optro can credibly claim the disruption position.</li>
+                    <li>Hg-friendly: the asset class is real, the delta is visible, the trigger conditions for acquisition become legible.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What it does not address</div>
+                  <ul class="sd-list">
+                    <li>Quality of the output — speed only.</li>
+                    <li>Customer willingness to substitute self-serve for advisory engagement.</li>
+                    <li>Durability of the speed delta as competitors catch up.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Trigger conditions</div>
+                  <div class="sd-text">Same as Option 1. Plus: Hg or board asks "what does Vanta's SOX module actually cost vs us"; a YC speed-shop posts a viral "we built X in a week" thread in GRC Twitter.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Cost · win condition</div>
+                  <div class="sd-text"><span class="sd-cost">M&amp;A budget + Hg approval</span>. Win = Optro retains net-new pre-IPO segment without needing an acquihire, or — if a hire is required — has the artifact to anchor the case.</div>
+                </div>
+              </div>
+            </details>
           </div>
           <div style="margin-top: auto; font-size: 12px; color: var(--muted); display: flex; gap: 16px;">
             <span><strong style="color: var(--ink);">Best for:</strong> exec / board pitch</span>
@@ -189,6 +279,39 @@
             </div>
             <div class="scenario-axis"><span>← platforms</span><span>applications →</span></div>
             <p class="scenario-analysis"><strong>Addresses Scenario 4 — AI-Native Newcomers.</strong> Single shareable URL converts the acquihire optionality bet into a defensible board ask. The Midship #2 framing without committing to a specific target.</p>
+            <details class="scenario-deep">
+              <summary>Full strategic analysis</summary>
+              <div class="scenario-deep-body">
+                <div class="sd-section">
+                  <div class="sd-label">Scenario story</div>
+                  <div class="sd-text">Same as Options 1 + 2 — AI-Native Newcomers thesis. The narrative format is the asset Hg / board members actually engage with at the optionality-bet stage, before any specific target.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What this prototype proves</div>
+                  <ul class="sd-list">
+                    <li>The Midship #2 pattern is real, transferable, articulable without committing to a specific target.</li>
+                    <li>The operating-model thesis (separate codebase + weekly releases + agent-led content) is the asset, not a specific company.</li>
+                    <li>The optionality bet has a board-ready narrative that doesn't require naming the target.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">What it does not address</div>
+                  <ul class="sd-list">
+                    <li>Cultural fit with any specific target.</li>
+                    <li>Integration overhead post-acquisition.</li>
+                    <li>Whether Optro can hold the speed culture long-term post-acquihire.</li>
+                  </ul>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Trigger conditions</div>
+                  <div class="sd-text">Same as Options 1 + 2. Plus: a specific target appears (Cardamon raises, Oxus scales); Hg starts pattern-matching from comparable PE portfolio acquihires.</div>
+                </div>
+                <div class="sd-section">
+                  <div class="sd-label">Cost · win condition</div>
+                  <div class="sd-text"><span class="sd-cost">M&amp;A budget + Hg approval</span>. Win = Optro has a quotable narrative for "this is what shipping like Midship #2 looks like" before any specific target conversation begins.</div>
+                </div>
+              </div>
+            </details>
           </div>
           <div style="margin-top: auto; font-size: 12px; color: var(--muted); display: flex; gap: 16px;">
             <span><strong style="color: var(--ink);">Best for:</strong> shareable URL</span>
