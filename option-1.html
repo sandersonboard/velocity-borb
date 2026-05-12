@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Velocity — Scripted Wizard Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .screen { display: none; padding: 40px 0; }
+    .screen.active { display: block; }
+    .step-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .step-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+    .step-header p { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-row label { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .form-row input, .form-row select {
+      padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 14px; outline: none; font-family: inherit;
+    }
+    .form-row input:focus, .form-row select:focus { border-color: var(--accent); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .control-row {
+      display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border);
+      border-radius: 6px; align-items: flex-start; background: white;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .control-id { font-family: monospace; font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .priority-must { background: #fef2f2; color: var(--accent); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .priority-should { background: #f3f4f6; color: var(--muted); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    .narrative-card {
+      border: 1px solid var(--border); border-radius: 8px; padding: 16px;
+      background: white; margin-bottom: 12px; animation: slideIn 0.3s ease;
+    }
+    .narrative-card.low-conf { border-color: #fecaca; }
+    .walk-card {
+      display: flex; gap: 16px; padding: 16px; border: 1px solid var(--border);
+      border-radius: 8px; background: white; margin-bottom: 12px;
+    }
+    .walk-num {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: var(--accent); color: white; display: flex;
+      align-items: center; justify-content: center; font-weight: 600; font-size: 14px;
+    }
+    .timeline {
+      position: relative; padding: 24px 0; margin: 24px 0;
+      background: linear-gradient(to right, #fef2f2, transparent);
+      border-radius: 8px;
+    }
+    .timeline-bar {
+      height: 4px; background: var(--border); border-radius: 2px;
+      position: relative; margin: 32px 24px;
+    }
+    .timeline-progress {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      background: var(--accent); border-radius: 2px; width: 0%;
+      transition: width 1s ease;
+    }
+    .timeline-marker {
+      position: absolute; top: -8px; transform: translateX(-50%);
+      width: 12px; height: 12px; background: var(--accent); border-radius: 50%;
+      border: 2px solid white;
+    }
+    .timeline-label {
+      position: absolute; top: 16px; transform: translateX(-50%);
+      font-size: 10px; color: var(--muted); white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-nav">
+    <div>
+      <a href="index.html">← All options</a>
+      <span style="color: var(--border); margin: 0 8px;">·</span>
+      <span class="brand">Velocity</span>
+      <span class="beta-pill">BETA</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <div id="stepper" class="stepper">
+        <div class="stepper-dot"></div>
+        <div class="stepper-dot"></div>
+        <div class="stepper-dot"></div>
+        <div class="stepper-dot"></div>
+        <div class="stepper-dot"></div>
+      </div>
+      <div id="timer-display" class="timer-pill" style="display: none;">
+        <span>⏱</span>
+        <span id="timer-text">0:00</span>
+        <span style="color: #6b7280; margin-left: 4px;">vs 6 weeks at Big 4</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="container" style="padding-bottom: 80px;">
+
+    <!-- Screen: Signup -->
+    <section id="screen-signup" class="screen active">
+      <div style="max-width: 480px; margin: 80px auto; text-align: center;">
+        <h1 style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 12px;">
+          Stand up your pre-IPO SOX program.
+        </h1>
+        <p style="font-size: 16px; color: var(--muted); margin: 0 0 32px;">
+          Get to S-1-ready in 20 minutes. <span class="accent">Big 4 charges $1-5M for the same artifact.</span>
+        </p>
+        <form id="signup-form" style="text-align: left; display: flex; flex-direction: column; gap: 12px;">
+          <div class="form-row">
+            <label>Work email</label>
+            <input type="email" id="signup-email" value="sarah@heliosrobotics.com" required />
+          </div>
+          <div class="form-row">
+            <label>Company name</label>
+            <input type="text" id="signup-company" value="Helios Robotics" required />
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top: 8px; justify-content: center;">
+            Start free →
+          </button>
+          <div style="font-size: 11px; color: var(--muted); text-align: center; margin-top: 8px;">
+            No credit card. No demo call. <span class="accent">Beta — visible iteration is the value prop.</span>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Screen: Step 1 — Profile -->
+    <section id="screen-profile" class="screen">
+      <div class="step-header">
+        <div>
+          <h1>Tell us about your company.</h1>
+          <p>This becomes the foundation for your control universe and walkthrough plan.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 24px; max-width: 720px;">
+        <div class="two-col">
+          <div class="form-row">
+            <label>Company name</label>
+            <input type="text" value="Helios Robotics" />
+          </div>
+          <div class="form-row">
+            <label>Industry</label>
+            <input type="text" value="Industrial robotics (hardware + SaaS)" />
+          </div>
+          <div class="form-row">
+            <label>Annual revenue</label>
+            <select><option>$50-200M</option></select>
+          </div>
+          <div class="form-row">
+            <label>Employee count</label>
+            <input type="number" value="340" />
+          </div>
+          <div class="form-row">
+            <label>Funding stage</label>
+            <select><option>Series D</option></select>
+          </div>
+          <div class="form-row">
+            <label>Target S-1 filing</label>
+            <input type="text" value="Q1 2027" />
+          </div>
+          <div class="form-row">
+            <label>External auditor</label>
+            <select><option>Deloitte</option></select>
+          </div>
+          <div class="form-row">
+            <label>Current SOX maturity</label>
+            <select><option>Informal — some controls, undocumented</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div id="risk-assessment-output" style="margin-top: 32px; display: none;">
+        <div class="card" style="padding: 24px; background: linear-gradient(135deg, #fffbeb 0%, white 100%);">
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 16px;">
+            <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px;">✨</div>
+            <div style="font-size: 13px; font-weight: 600;">Initial risk assessment</div>
+          </div>
+          <div id="risk-summary" style="font-size: 14px; line-height: 1.6; color: var(--ink); margin-bottom: 20px;"></div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Top risk areas</div>
+          <div id="risk-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; gap: 12px;">
+        <button id="profile-submit-btn" class="btn btn-primary" onclick="runProfileStream()">Continue → Generate Controls</button>
+        <button id="profile-next-btn" class="btn btn-primary" onclick="goTo('controls'); generateControls();" style="display: none;">Continue → Generate Controls</button>
+      </div>
+    </section>
+
+    <!-- Screen: Step 2 — Controls -->
+    <section id="screen-controls" class="screen">
+      <div class="step-header">
+        <div>
+          <h1>Your control universe.</h1>
+          <p id="controls-count">Generating controls based on your profile…</p>
+        </div>
+        <div style="font-size: 12px; color: var(--muted);">
+          Edits flow into subsequent steps.
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Financial reporting</div>
+          <div id="col-financial_reporting" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">ITGCs</div>
+          <div id="col-itgc" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Entity-level</div>
+          <div id="col-entity_level" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+      </div>
+
+      <div id="coherence-modal" style="display: none; margin-top: 24px;">
+        <div class="card" style="padding: 20px; background: #fffbeb; border-color: #fde68a;">
+          <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+            <div style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px;">!</div>
+            <div style="font-weight: 600; font-size: 14px;">Before you continue — 3 things to review</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+            <div style="font-size: 13px; padding-left: 28px;">
+              <strong>Possible overlap:</strong> FR-001 (Revenue recognition review) and FR-002 (Deferred revenue rollforward) may be testing the same control activity. Consider consolidating or distinguishing scope explicitly.
+            </div>
+            <div style="font-size: 13px; padding-left: 28px;">
+              <strong>Missing SoD coverage:</strong> Your ITGC set covers access reviews but not segregation-of-duties matrices for NetSuite vendor master vs payment approval. Suggested addition: IT-009 SoD matrix review.
+            </div>
+            <div style="font-size: 13px; padding-left: 28px;">
+              <strong>Frequency mismatch:</strong> FR-006 (Stock-based comp) marked monthly, but your fiscal calendar is quarterly. Recommend quarterly cadence aligned with provision review.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; gap: 12px;">
+        <button id="controls-next-btn" class="btn btn-primary" onclick="runCoherenceCheck()" style="display: none;">Next → Narratives</button>
+        <button id="coherence-continue-btn" class="btn btn-primary" onclick="goTo('narratives'); generateNarratives();" style="display: none;">Continue → Draft Narratives</button>
+      </div>
+    </section>
+
+    <!-- Screen: Step 3 — Narratives -->
+    <section id="screen-narratives" class="screen">
+      <div class="step-header">
+        <div>
+          <h1>Control narratives.</h1>
+          <p id="narratives-progress">Drafting 47 narratives in parallel…</p>
+        </div>
+        <div style="font-size: 12px; color: var(--muted);">
+          Low-confidence narratives float to the top for your review.
+        </div>
+      </div>
+
+      <div id="narrative-list"></div>
+
+      <div style="margin-top: 24px; display: flex; gap: 12px;">
+        <button id="narratives-next-btn" class="btn btn-primary" onclick="goTo('walkthroughs'); generateWalkthroughs();" style="display: none;">Next → Walkthrough Plan</button>
+      </div>
+    </section>
+
+    <!-- Screen: Step 4 — Walkthroughs -->
+    <section id="screen-walkthroughs" class="screen">
+      <div class="step-header">
+        <div>
+          <h1>Walkthrough plan for Deloitte.</h1>
+          <p>Sequenced for your Q1 2027 S-1 target. Validate specifics with your engagement team.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 24px; margin-bottom: 24px;">
+        <div style="font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">S-1 timeline</div>
+        <div class="timeline">
+          <div class="timeline-bar">
+            <div id="timeline-progress" class="timeline-progress"></div>
+            <div class="timeline-marker" style="left: 0%;"></div>
+            <div class="timeline-label" style="left: 0%;">Today</div>
+            <div class="timeline-marker" style="left: 15%;"></div>
+            <div class="timeline-label" style="left: 15%;">Walkthroughs begin</div>
+            <div class="timeline-marker" style="left: 45%;"></div>
+            <div class="timeline-label" style="left: 45%;">Year-1 audit</div>
+            <div class="timeline-marker" style="left: 100%; background: var(--ink);"></div>
+            <div class="timeline-label" style="left: 100%;">S-1 filed</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="walk-list"></div>
+
+      <div class="card" style="padding: 16px; margin-top: 24px; background: #fef2f2;">
+        <div style="font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Disclaimers</div>
+        <ul style="font-size: 12px; color: var(--ink); line-height: 1.6; padding-left: 16px; margin: 0;">
+          <li>This plan is generated from public knowledge of Deloitte's general audit methodology. Validate specific timing and documentation preferences with your engagement team.</li>
+          <li>Walkthroughs target Year-1 audit (~52 weeks before S-1). Adjust forward if your filing window is sooner.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button class="btn btn-primary" onclick="goTo('export')">Next → Review &amp; Export</button>
+      </div>
+    </section>
+
+    <!-- Screen: Step 5 — Export -->
+    <section id="screen-export" class="screen">
+      <div class="step-header">
+        <div>
+          <h1>Your pre-IPO SOX program.</h1>
+          <p>Ready to share with your CFO and audit committee.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+        <div>
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;">Summary</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+              <div>
+                <div style="font-size: 28px; font-weight: 700; font-family: var(--serif);">115</div>
+                <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;">Controls</div>
+              </div>
+              <div>
+                <div style="font-size: 28px; font-weight: 700; font-family: var(--serif);">47</div>
+                <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;">Narratives</div>
+              </div>
+              <div>
+                <div style="font-size: 28px; font-weight: 700; font-family: var(--serif);">6</div>
+                <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;">Walkthroughs</div>
+              </div>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: 16px;">
+              <div style="font-size: 13px; line-height: 1.6;">
+                <strong>Helios Robotics</strong> — Series D, Q1 2027 S-1 target, Deloitte engagement. Program covers all material risk areas: revenue recognition, inventory/COGS, ITGCs, entity-level governance, stock-based comp. <span class="accent">47 must-have narratives drafted</span>; 8 flagged for company-specific input.
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; display: flex; gap: 12px;">
+            <a class="btn btn-primary" href="pdf-sample.html" target="_blank" style="font-size: 14px;">
+              📄 Download PDF
+            </a>
+            <button class="btn" onclick="alert('JSON export would download here in the real product.')">
+              { } Export JSON
+            </button>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card" style="padding: 20px; background: linear-gradient(135deg, #fef2f2 0%, white 100%);">
+            <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Want help operationalizing this?</div>
+            <div style="font-size: 12px; color: var(--muted); margin-bottom: 16px; line-height: 1.5;">
+              Auditborb's enterprise SOX platform takes this program and operationalizes it — evidence collection, testing workflows, walkthrough scheduling, audit committee reporting.
+            </div>
+            <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 13px;">
+              Schedule a call →
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <div id="completion-callout" style="margin-top: 32px;">
+        <div class="card" style="padding: 20px; background: #ecfdf5; border-color: #a7f3d0;">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <div style="font-size: 24px;">✓</div>
+            <div>
+              <div style="font-weight: 600; font-size: 14px;">Completed in <span id="final-time">2:14</span></div>
+              <div style="font-size: 12px; color: var(--muted);">A Big 4 advisory engagement typically takes 6-12 weeks to deliver the same artifact, at $1-5M.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="shared.js"></script>
+  <script>injectGate();</script>
+  <script>
+    // ===== Demo state =====
+    const screens = ['signup', 'profile', 'controls', 'narratives', 'walkthroughs', 'export'];
+    let stopTimer;
+    let timerStarted = false;
+
+    function goTo(screen) {
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+      document.getElementById('screen-' + screen).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Update stepper (skip signup)
+      const stepIndex = screens.indexOf(screen) - 1;
+      const dots = document.querySelectorAll('#stepper .stepper-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.remove('active', 'done');
+        if (i < stepIndex) dot.classList.add('done');
+        else if (i === stepIndex) dot.classList.add('active');
+      });
+
+      // Start timer on entering step 1
+      if (screen === 'profile' && !timerStarted) {
+        document.getElementById('timer-display').style.display = 'flex';
+        stopTimer = startTimer(document.getElementById('timer-text'));
+        timerStarted = true;
+      }
+
+      // Stop timer at export
+      if (screen === 'export' && stopTimer) {
+        const finalTime = document.getElementById('timer-text').textContent;
+        document.getElementById('final-time').textContent = finalTime;
+        stopTimer();
+      }
+    }
+
+    // Signup → profile
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      goTo('profile');
+    });
+
+    // ===== Step 1: Profile → Risk Assessment =====
+    async function runProfileStream() {
+      const btn = document.getElementById('profile-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Generating risk assessment…';
+
+      document.getElementById('risk-assessment-output').style.display = 'block';
+      const summaryEl = document.getElementById('risk-summary');
+      await streamText(summaryEl, HELIOS.riskAssessment.summary, { delay: 8, jitter: 4 });
+
+      const listEl = document.getElementById('risk-list');
+      for (const risk of HELIOS.riskAssessment.risks) {
+        const card = document.createElement('div');
+        card.style.cssText = 'padding: 12px; background: white; border: 1px solid var(--border); border-radius: 6px;';
+        card.innerHTML = `
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">${risk.area}</div>
+          <div style="font-size: 12px; color: var(--ink); line-height: 1.5; margin-bottom: 8px;">${risk.rationale}</div>
+          <div>${risk.assumptions.map(a => `<span class="assumption-chip" title="Click to correct">${a}</span>`).join('')}</div>
+        `;
+        card.style.animation = 'slideIn 0.3s ease';
+        listEl.appendChild(card);
+        await sleep(180);
+      }
+
+      btn.style.display = 'none';
+      document.getElementById('profile-next-btn').style.display = 'inline-flex';
+    }
+
+    // ===== Step 2: Controls =====
+    async function generateControls() {
+      const controls = HELIOS.controls;
+      const cols = {
+        financial_reporting: document.getElementById('col-financial_reporting'),
+        itgc: document.getElementById('col-itgc'),
+        entity_level: document.getElementById('col-entity_level'),
+      };
+      Object.values(cols).forEach(c => c.innerHTML = '');
+
+      for (const c of controls) {
+        const row = document.createElement('div');
+        row.className = 'control-row';
+        const pri = c.priority === 'must_have' ? '<span class="priority-must">MUST</span>' : '<span class="priority-should">SHOULD</span>';
+        row.innerHTML = `
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px;">
+              <span class="control-id">${c.id}</span>
+              ${pri}
+            </div>
+            <div style="font-weight: 500; font-size: 13px; line-height: 1.3; margin-bottom: 4px;">${c.name}</div>
+            <div style="font-size: 11px; color: var(--muted);">Owner: ${c.owner}</div>
+          </div>
+        `;
+        cols[c.cat].appendChild(row);
+        await sleep(90);
+      }
+
+      // Show count (claim 115 but only show ~24 for demo)
+      document.getElementById('controls-count').innerHTML =
+        '<span style="color: var(--accent); font-weight: 600;">115 controls generated</span> · 60 financial reporting · 40 ITGCs · 15 entity-level · <span style="color: var(--muted);">(showing top items)</span>';
+
+      document.getElementById('controls-next-btn').style.display = 'inline-flex';
+    }
+
+    async function runCoherenceCheck() {
+      const btn = document.getElementById('controls-next-btn');
+      btn.disabled = true;
+      btn.textContent = 'Reviewing for gaps and conflicts…';
+      await sleep(1800);
+      btn.style.display = 'none';
+      document.getElementById('coherence-modal').style.display = 'block';
+      document.getElementById('coherence-continue-btn').style.display = 'inline-flex';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    // ===== Step 3: Narratives =====
+    async function generateNarratives() {
+      const listEl = document.getElementById('narrative-list');
+      listEl.innerHTML = '';
+      const progressEl = document.getElementById('narratives-progress');
+
+      // Pull demo narratives + synthesize the rest from controls
+      const mustHaves = HELIOS.controls.filter(c => c.priority === 'must_have');
+      const explicit = Object.keys(HELIOS.narratives);
+
+      // Render explicit narratives first (sorted low → high confidence)
+      const explicitItems = explicit.map(id => ({ id, ctrl: HELIOS.controls.find(c => c.id === id), n: HELIOS.narratives[id] }))
+        .sort((a, b) => {
+          const order = { low: 0, medium: 1, high: 2 };
+          return order[a.n.confidence] - order[b.n.confidence];
+        });
+
+      // Show synthesized cards for the remaining must-haves (skeleton style)
+      const remaining = mustHaves.filter(c => !explicit.includes(c.id)).slice(0, 6);
+
+      let drafted = 0;
+      const total = explicitItems.length + remaining.length;
+      progressEl.textContent = `Drafting ${total} narratives in parallel…`;
+
+      // Stream the detailed ones first
+      for (const item of explicitItems) {
+        const card = document.createElement('div');
+        const confClass = item.n.confidence === 'high' ? 'conf-high' : item.n.confidence === 'medium' ? 'conf-medium' : 'conf-low';
+        card.className = 'narrative-card' + (item.n.confidence === 'low' ? ' low-conf' : '');
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <span class="control-id">${item.id}</span>
+              <div style="font-weight: 600; font-size: 14px; margin-top: 2px;">${item.ctrl.name}</div>
+            </div>
+            <span class="confidence-pill ${confClass}">${item.n.confidence}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px;">
+            <div>
+              <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px;">Process</div>
+              <div style="line-height: 1.5;">${item.n.process}</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 2px;">Frequency</div>
+                <div>${item.n.frequency}</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 2px;">Evidence</div>
+                <div>${item.n.evidence}</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 2px;">Test approach</div>
+                <div>${item.n.testApproach}</div>
+              </div>
+            </div>
+          </div>
+          ${item.n.lowConfidenceReason ? `
+            <div style="margin-top: 12px; padding: 8px 12px; background: #fef2f2; border-radius: 4px; font-size: 12px; color: var(--accent);">
+              <strong>Low confidence:</strong> ${item.n.lowConfidenceReason}
+            </div>
+          ` : ''}
+        `;
+        listEl.appendChild(card);
+        drafted++;
+        progressEl.innerHTML = `<strong>${drafted} of ${total}</strong> drafted · <span class="accent">${explicitItems.filter(i => i.n.confidence === 'low').length}</span> flagged for review`;
+        await sleep(350);
+      }
+
+      // Synthesized skeletons for the rest
+      for (const c of remaining) {
+        const card = document.createElement('div');
+        card.className = 'narrative-card';
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <div>
+              <span class="control-id">${c.id}</span>
+              <div style="font-weight: 600; font-size: 14px; margin-top: 2px;">${c.name}</div>
+            </div>
+            <span class="confidence-pill conf-high">high</span>
+          </div>
+          <div style="font-size: 12px; color: var(--muted); line-height: 1.5;">
+            ${c.desc} <em>(Full narrative drafted; review collapsed.)</em>
+          </div>
+        `;
+        listEl.appendChild(card);
+        drafted++;
+        progressEl.innerHTML = `<strong>${drafted} of ${total}</strong> drafted`;
+        await sleep(200);
+      }
+
+      progressEl.innerHTML = `<strong>${total} narratives drafted</strong> · <span class="accent">${explicitItems.filter(i => i.n.confidence === 'low').length} flagged for review</span> · <span style="color: var(--muted);">(showing sample; full set in PDF export)</span>`;
+      document.getElementById('narratives-next-btn').style.display = 'inline-flex';
+    }
+
+    // ===== Step 4: Walkthroughs =====
+    async function generateWalkthroughs() {
+      const listEl = document.getElementById('walk-list');
+      listEl.innerHTML = '';
+
+      // Animate timeline
+      setTimeout(() => {
+        document.getElementById('timeline-progress').style.width = '15%';
+      }, 200);
+
+      for (let i = 0; i < HELIOS.walkthroughPlan.sequence.length; i++) {
+        const w = HELIOS.walkthroughPlan.sequence[i];
+        const card = document.createElement('div');
+        card.className = 'walk-card';
+        card.style.animation = 'slideIn 0.4s ease';
+        card.innerHTML = `
+          <div class="walk-num">${i + 1}</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+              <div style="font-weight: 600; font-size: 15px;">${w.title}</div>
+              <div style="font-size: 11px; color: var(--muted);">~${Math.abs(w.targetWeeks)} weeks before S-1</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 12px;">
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px;">Controls covered</div>
+                <div style="font-family: monospace; font-size: 11px;">${w.controls.join(', ')}</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px;">Attendees</div>
+                <div>${w.attendees.join(' · ')}</div>
+              </div>
+              <div>
+                <div style="font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px;">PBC items</div>
+                <ul style="margin: 0; padding-left: 14px; line-height: 1.4;">
+                  ${w.pbcs.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+        listEl.appendChild(card);
+        await sleep(280);
+      }
+    }
+  </script>
+</body>
+</html>

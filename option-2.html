@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Velocity — Big 4 vs Velocity Race</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .race-column {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      height: 70vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .race-column.velocity { border-color: var(--accent); }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .col-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .col-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .col-cost {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+      letter-spacing: 0.04em;
+    }
+
+    .events {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+    .events::-webkit-scrollbar { width: 4px; }
+    .events::-webkit-scrollbar-track { background: transparent; }
+    .events::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .event {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.4;
+      animation: slideIn 0.4s ease;
+      background: #fafafa;
+    }
+    .event.complete { background: white; }
+    .event.velocity-event { border-color: #fecaca; background: #fef2f2; }
+    .event.velocity-event.complete { background: white; border-color: var(--accent); }
+
+    .event-time {
+      flex-shrink: 0;
+      font-size: 10px;
+      color: var(--muted);
+      font-family: monospace;
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+      min-width: 38px;
+    }
+
+    .event-dot {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      margin-top: 5px;
+    }
+    .event.complete .event-dot { background: #10b981; }
+    .event.velocity-event .event-dot { background: var(--accent); }
+
+    .event-text { flex: 1; }
+    .event-text strong { font-weight: 600; }
+
+    .winner-banner {
+      position: absolute;
+      inset: 0;
+      background: rgba(168, 49, 63, 0.95);
+      color: white;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+    .winner-banner.show { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .big-clock {
+      font-size: 48px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      font-family: var(--serif);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-nav">
+    <div>
+      <a href="index.html">← All options</a>
+      <span style="color: var(--border); margin: 0 8px;">·</span>
+      <span class="brand">Velocity</span>
+      <span class="beta-pill">BETA</span>
+    </div>
+    <div style="font-size: 12px; color: var(--muted);">Option 2 — Split-screen race</div>
+  </div>
+
+  <main class="container" style="padding: 32px 24px 80px;">
+    <header style="text-align: center; margin-bottom: 32px;">
+      <h1 style="font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px;">
+        Same artifact. Same auditor. Different timelines.
+      </h1>
+      <p style="font-size: 14px; color: var(--muted); margin: 0;">
+        A Series D Controller standing up a SOX program. Big 4 advisory on the left. Velocity on the right. Same clock.
+      </p>
+    </header>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 32px;">
+      <div class="big-clock" id="big-clock">0:00</div>
+      <div style="display: flex; gap: 12px;">
+        <button id="start-btn" class="btn btn-primary" onclick="startRace()" style="font-size: 14px;">▶ Start race</button>
+        <button id="reset-btn" class="btn" onclick="resetRace()" style="font-size: 14px; display: none;">↻ Reset</button>
+      </div>
+      <div style="font-size: 11px; color: var(--muted);">
+        Demo time compressed — each second represents about 1 week of real Big 4 calendar.
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+      <!-- Big 4 column -->
+      <div class="race-column" style="position: relative;">
+        <div class="col-header">
+          <div>
+            <div class="col-title">Big 4 advisory</div>
+            <div class="col-subtitle">e.g., Deloitte / PwC / EY pre-IPO SOX readiness</div>
+          </div>
+          <div class="col-cost">$1-5M · 6-12 weeks</div>
+        </div>
+        <div class="events" id="big4-events">
+          <div style="text-align: center; color: var(--muted); font-size: 13px; margin: auto;">
+            ↑ Hit Start to begin
+          </div>
+        </div>
+      </div>
+
+      <!-- Velocity column -->
+      <div class="race-column velocity" style="position: relative;">
+        <div class="col-header">
+          <div>
+            <div class="col-title">Velocity <span class="beta-pill">BETA</span></div>
+            <div class="col-subtitle">Self-serve, AI-native — same Deloitte-targeted artifact</div>
+          </div>
+          <div class="col-cost">$0 · 20 minutes</div>
+        </div>
+        <div class="events" id="velocity-events">
+          <div style="text-align: center; color: var(--muted); font-size: 13px; margin: auto;">
+            ↑ Hit Start to begin
+          </div>
+        </div>
+        <div id="velocity-winner" class="winner-banner">
+          <div style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; margin-bottom: 8px;">✓ COMPLETE</div>
+          <div class="big-clock" style="color: white; font-size: 64px;" id="velocity-final-time">0:08</div>
+          <div style="font-size: 14px; opacity: 0.9; margin: 12px 0 0; max-width: 300px;">
+            Full SOX 404 program ready for Helios Robotics' CFO. Big 4 column is still on Week 1.
+          </div>
+          <button class="btn" style="margin-top: 24px; background: white; color: var(--accent);" onclick="viewArtifact()">
+            View the artifact →
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; line-height: 1.6;">
+      <div class="card" style="padding: 20px;">
+        <div style="font-weight: 600; margin-bottom: 6px;">Why Big 4 is slow</div>
+        <div style="color: var(--muted);">Calendar coordination, brand process, billable hours all built around weeks-long engagement cycles. The work itself isn't slow — the operating model is.</div>
+      </div>
+      <div class="card" style="padding: 20px; border-color: #fecaca; background: #fef2f2;">
+        <div style="font-weight: 600; margin-bottom: 6px; color: var(--accent);">Why Velocity is fast</div>
+        <div style="color: var(--ink);">Agent does the drafting. Self-serve flow eliminates meeting coordination. The output is the same artifact format your Deloitte team expects — they pick it up and run.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="shared.js"></script>
+  <script>injectGate();</script>
+  <script>
+    const big4Events = [
+      { t: 1,  text: 'Engagement letter signed with Deloitte', label: 'Week 1' },
+      { t: 4,  text: 'Calendar coordination for kickoff meeting', label: 'Week 1' },
+      { t: 7,  text: 'Kickoff meeting held with Deloitte audit team', label: 'Week 1' },
+      { t: 10, text: 'PBC (Prepared-By-Client) list received', label: 'Week 1' },
+      { t: 14, text: 'Initial document gathering — gather 60+ artifacts', label: 'Week 2' },
+      { t: 18, text: 'Documents delivered to Deloitte for review', label: 'Week 2' },
+      { t: 22, text: 'Deloitte risk assessment workshop scheduled', label: 'Week 3' },
+      { t: 26, text: 'Risk assessment workshop held (full-day)', label: 'Week 3' },
+      { t: 30, text: 'Deloitte drafts control universe', label: 'Week 4' },
+      { t: 34, text: 'Control universe review meeting', label: 'Week 4' },
+      { t: 38, text: 'Iteration round 1 — control refinement', label: 'Week 4' },
+      { t: 42, text: 'Narrative drafting begins (Deloitte team)', label: 'Week 5' },
+      { t: 46, text: 'Narrative review with process owners', label: 'Week 5' },
+      { t: 50, text: 'Walkthrough planning session', label: 'Week 6' },
+      { t: 54, text: 'Final readiness report drafted', label: 'Week 6' },
+      { t: 58, text: 'Report delivered to CFO', label: 'Week 6+' },
+    ];
+
+    const velocityEvents = [
+      { t: 0.5, text: '<strong>Signed up</strong> as Helios Robotics', label: '0:00' },
+      { t: 1.5, text: '<strong>Step 1</strong> — Company profile entered, risk assessment generated', label: '0:01' },
+      { t: 3.0, text: '<strong>Step 2</strong> — 115 controls drafted across 3 categories, coherence checked', label: '0:03' },
+      { t: 5.0, text: '<strong>Step 3</strong> — 47 narratives drafted in parallel, 8 flagged for review', label: '0:05' },
+      { t: 7.0, text: '<strong>Step 4</strong> — Deloitte walkthrough plan generated, sequenced to S-1', label: '0:07' },
+      { t: 8.0, text: '<strong>Step 5</strong> ✓ — CFO-ready PDF exported', label: '0:08' },
+    ];
+
+    let raceStart = 0;
+    let raceRunning = false;
+    let big4Pending = [];
+    let velocityPending = [];
+    let tickFrame;
+
+    function startRace() {
+      if (raceRunning) return;
+      raceRunning = true;
+      raceStart = performance.now();
+      big4Pending = [...big4Events];
+      velocityPending = [...velocityEvents];
+
+      document.getElementById('big4-events').innerHTML = '';
+      document.getElementById('velocity-events').innerHTML = '';
+      document.getElementById('start-btn').style.display = 'none';
+      document.getElementById('velocity-winner').classList.remove('show');
+
+      tick();
+    }
+
+    function resetRace() {
+      raceRunning = false;
+      cancelAnimationFrame(tickFrame);
+      document.getElementById('big-clock').textContent = '0:00';
+      document.getElementById('big4-events').innerHTML = '<div style="text-align: center; color: var(--muted); font-size: 13px; margin: auto;">↑ Hit Start to begin</div>';
+      document.getElementById('velocity-events').innerHTML = '<div style="text-align: center; color: var(--muted); font-size: 13px; margin: auto;">↑ Hit Start to begin</div>';
+      document.getElementById('start-btn').style.display = 'inline-flex';
+      document.getElementById('reset-btn').style.display = 'none';
+      document.getElementById('velocity-winner').classList.remove('show');
+    }
+
+    function tick() {
+      const elapsedMs = performance.now() - raceStart;
+      const elapsedSec = elapsedMs / 1000;
+
+      // Clock display: this is REAL elapsed time of the demo
+      const m = Math.floor(elapsedSec / 60);
+      const s = Math.floor(elapsedSec % 60);
+      document.getElementById('big-clock').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+
+      // Big 4 events
+      while (big4Pending.length && elapsedSec >= big4Pending[0].t) {
+        const e = big4Pending.shift();
+        addEvent('big4-events', e);
+      }
+
+      // Velocity events
+      while (velocityPending.length && elapsedSec >= velocityPending[0].t) {
+        const e = velocityPending.shift();
+        addEvent('velocity-events', e, true);
+
+        // Velocity done — show winner banner
+        if (velocityPending.length === 0) {
+          setTimeout(() => {
+            document.getElementById('velocity-final-time').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+            document.getElementById('velocity-winner').classList.add('show');
+          }, 800);
+        }
+      }
+
+      // End condition: all big 4 events done
+      if (big4Pending.length === 0 && velocityPending.length === 0) {
+        // Let Big 4 keep "running" briefly to show the contrast
+        if (elapsedSec > big4Events[big4Events.length - 1].t + 4) {
+          raceRunning = false;
+          document.getElementById('reset-btn').style.display = 'inline-flex';
+          return;
+        }
+      }
+
+      tickFrame = requestAnimationFrame(tick);
+    }
+
+    function addEvent(containerId, event, isVelocity = false) {
+      const container = document.getElementById(containerId);
+      const el = document.createElement('div');
+      el.className = 'event complete' + (isVelocity ? ' velocity-event' : '');
+      el.innerHTML = `
+        <span class="event-time">${event.label}</span>
+        <div class="event-dot"></div>
+        <div class="event-text">${event.text}</div>
+      `;
+      container.appendChild(el);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function viewArtifact() {
+      window.open('pdf-sample.html', '_blank');
+    }
+  </script>
+</body>
+</html>

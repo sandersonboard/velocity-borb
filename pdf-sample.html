@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Helios Robotics — Pre-IPO SOX 404 Readiness Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body { background: #e5e7eb; font-family: 'Source Serif 4', Georgia, serif; }
+
+    .page {
+      width: 816px;
+      min-height: 1056px;
+      background: white;
+      margin: 32px auto;
+      padding: 72px 80px 60px;
+      box-shadow: 0 4px 24px -8px rgba(0,0,0,0.15);
+      position: relative;
+      page-break-after: always;
+    }
+    .page-footer {
+      position: absolute;
+      bottom: 32px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: var(--muted);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    h1.cover-title {
+      font-size: 56px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+    h1.section-title {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 24px 0 8px;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 16px 0 8px;
+    }
+
+    p { font-size: 14px; line-height: 1.6; margin: 0 0 12px; color: var(--ink); }
+
+    .lede {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 48px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    .meta-grid dt { color: var(--muted); margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .meta-grid dd { margin: 0; font-weight: 500; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+    th {
+      text-align: left;
+      padding: 8px 10px;
+      background: #fafafa;
+      border-bottom: 2px solid var(--ink);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    td.id { font-family: monospace; color: var(--muted); white-space: nowrap; }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 9px;
+      border-radius: 3px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+    .pill-must { background: #fef2f2; color: var(--accent); }
+    .pill-should { background: #f3f4f6; color: var(--muted); }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .stat-box {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .stat-num { font-family: 'Source Serif 4', serif; font-size: 32px; font-weight: 600; line-height: 1; color: var(--accent); }
+    .stat-lbl { font-family: 'Inter', sans-serif; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 6px; }
+
+    .narrative-block {
+      margin: 16px 0;
+      padding: 16px;
+      background: #fafafa;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+    .narrative-block h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+    .narrative-block .ctrl-id { font-family: monospace; font-size: 11px; color: var(--muted); margin-right: 8px; }
+    .nb-grid {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 6px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .nb-grid .label { color: var(--muted); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .timeline-pdf {
+      display: flex;
+      gap: 0;
+      margin: 24px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      align-items: flex-end;
+    }
+    .timeline-bar-pdf {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      position: relative;
+      margin: 24px 0 60px;
+    }
+    .timeline-marker-pdf {
+      position: absolute;
+      top: -6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      transform: translateX(-50%);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .timeline-marker-pdf.gray { background: var(--muted); box-shadow: 0 0 0 2px var(--muted); }
+    .timeline-label-pdf {
+      position: absolute;
+      top: 18px;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 90px;
+    }
+    .timeline-label-pdf strong { display: block; font-size: 11px; }
+    .timeline-label-pdf span { display: block; font-size: 10px; color: var(--muted); }
+
+    .toolbar {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      box-shadow: 0 4px 12px -4px rgba(0,0,0,0.15);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 100;
+    }
+    .toolbar a { color: var(--ink); text-decoration: none; }
+    .toolbar a:hover { color: var(--accent); }
+
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .page { margin: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <a href="javascript:window.close()">✕ Close</a>
+    <span style="color: var(--border);">|</span>
+    <a href="javascript:window.print()">🖨 Print</a>
+    <span style="color: var(--border);">|</span>
+    <span style="color: var(--muted); font-size: 11px;">Sample export — Helios Robotics</span>
+  </div>
+
+  <!-- PAGE 1: Cover -->
+  <div class="page">
+    <div style="margin-top: 120px;">
+      <div style="font-family: 'Inter', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); font-weight: 600; margin-bottom: 16px;">
+        Pre-IPO SOX 404 Readiness
+      </div>
+      <h1 class="cover-title">Helios Robotics</h1>
+      <p class="lede" style="margin-top: 8px;">
+        Control universe, narratives, walkthrough plan, and S-1 readiness timeline for a Series D industrial robotics company preparing for IPO under Deloitte audit.
+      </p>
+    </div>
+
+    <dl class="meta-grid" style="margin-top: 80px;">
+      <div>
+        <dt>Prepared for</dt>
+        <dd>Sarah Chen, Controller<br>Helios Robotics, Inc.</dd>
+      </div>
+      <div>
+        <dt>Target S-1 filing</dt>
+        <dd>Q1 2027</dd>
+      </div>
+      <div>
+        <dt>External auditor</dt>
+        <dd>Deloitte &amp; Touche LLP</dd>
+      </div>
+      <div>
+        <dt>Report date</dt>
+        <dd>May 12, 2026</dd>
+      </div>
+    </dl>
+
+    <div class="page-footer">
+      <span>Generated by <strong>Velocity</strong>, an Auditborb beta product · Total generation time: 18 minutes 47 seconds</span>
+      <span>Cover</span>
+    </div>
+  </div>
+
+  <!-- PAGE 2: Executive summary -->
+  <div class="page">
+    <h1 class="section-title">Executive summary</h1>
+    <p class="lede">
+      Helios Robotics is approximately 18 months from a planned Q1 2027 S-1 filing. This report establishes the company's pre-IPO SOX 404 program: a 115-control universe, 47 must-have narratives, and a 6-walkthrough engagement plan sequenced against the target filing date.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">115</div>
+        <div class="stat-lbl">Controls</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">47</div>
+        <div class="stat-lbl">Must-have narratives</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">Walkthroughs</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">52w</div>
+        <div class="stat-lbl">Year-1 audit lead time</div>
+      </div>
+    </div>
+
+    <h2>Company profile</h2>
+    <p>
+      Helios Robotics is a Series D industrial robotics company combining hardware sales with multi-year SaaS contracts. The company has approximately 340 employees, falls within the $50-200M annual revenue band, and engages Deloitte for external audit. Existing SOX maturity is informal — controls exist in practice but are not formally documented or tested.
+    </p>
+
+    <h2>Top risk areas identified</h2>
+    <p>
+      The agent's initial assessment surfaced five concentration risks driven by the company's business model and stage:
+    </p>
+    <ol style="font-size: 14px; line-height: 1.7; padding-left: 24px;">
+      <li><strong>Revenue recognition (ASC 606)</strong> — mixed hardware + SaaS contracts trigger complex performance-obligation allocation.</li>
+      <li><strong>Inventory &amp; COGS</strong> — industrial robotics implies material inventory cycles and standard-cost variance accounting.</li>
+      <li><strong>ITGCs — change management &amp; access</strong> — engineering-led 340-person org typically has loose dev-to-prod boundaries.</li>
+      <li><strong>Stock-based compensation</strong> — pre-IPO equity grants accelerate around S-1 filing; ASC 718 modifications and 409A interplay are routine Deloitte focus.</li>
+      <li><strong>Period-end close &amp; journal entries</strong> — informal close at 340-person scale typically lacks JE approval thresholds and reconciliation evidence.</li>
+    </ol>
+
+    <h2>Recommended next steps</h2>
+    <p>
+      Begin narrative review with process owners in the next 30 days. Schedule the first walkthrough (period-end close) with Deloitte within 90 days. Validate firm-specific procedural specifics with the engagement team — all firm-flavored guidance in this document is generated from public knowledge of Deloitte's general audit methodology.
+    </p>
+
+    <div class="page-footer">
+      <span><strong>Helios Robotics</strong> — Pre-IPO SOX 404 Readiness · Auditborb / Velocity</span>
+      <span>Page 2</span>
+    </div>
+  </div>
+
+  <!-- PAGE 3: Control universe -->
+  <div class="page">
+    <h1 class="section-title">Control universe</h1>
+    <p class="lede">115 controls covering financial reporting, IT general controls, and entity-level governance. The following table shows must-have controls only. Full universe in Appendix A.</p>
+
+    <h3>Financial reporting · 18 must-have</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 70px;">ID</th>
+          <th>Control</th>
+          <th style="width: 130px;">Owner</th>
+          <th style="width: 90px;">Frequency</th>
+          <th style="width: 60px;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="id">FR-001</td><td>Revenue recognition — performance obligation review</td><td>Controller</td><td>Monthly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-002</td><td>Deferred revenue rollforward</td><td>Senior Accountant</td><td>Monthly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-003</td><td>Inventory standard-cost variance review</td><td>Controller</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-004</td><td>Inventory physical count</td><td>Operations Lead</td><td>Annual + cycle</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-006</td><td>Stock-based comp expense accrual</td><td>Senior Accountant</td><td>Monthly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-007</td><td>Journal entry approval — over $25K</td><td>Controller</td><td>Per entry</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-008</td><td>Bank reconciliations</td><td>Senior Accountant</td><td>Monthly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-009</td><td>Accounts payable cutoff</td><td>AP Specialist</td><td>Period-end</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">FR-012</td><td>Income tax provision review</td><td>External tax provider</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">ITGCs · 16 must-have</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 70px;">ID</th>
+          <th>Control</th>
+          <th style="width: 130px;">Owner</th>
+          <th style="width: 90px;">Frequency</th>
+          <th style="width: 60px;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="id">IT-001</td><td>Production access review</td><td>IT Director</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">IT-002</td><td>Change management — code deploy approval</td><td>Engineering Manager</td><td>Per change</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">IT-003</td><td>Database backup &amp; restore testing</td><td>IT Director</td><td>Monthly / semi-annual</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">IT-004</td><td>Segregation of duties — financial systems</td><td>Controller</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">IT-005</td><td>Multi-factor authentication</td><td>IT Director</td><td>Continuous</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">IT-006</td><td>Privileged access review</td><td>IT Director</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">Entity-level · 13 must-have</h3>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 70px;">ID</th>
+          <th>Control</th>
+          <th style="width: 130px;">Owner</th>
+          <th style="width: 90px;">Frequency</th>
+          <th style="width: 60px;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="id">EL-001</td><td>Code of conduct attestation</td><td>HR</td><td>Annual</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">EL-002</td><td>Whistleblower hotline</td><td>General Counsel</td><td>Continuous</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">EL-003</td><td>Audit committee charter</td><td>General Counsel</td><td>Quarterly</td><td><span class="pill pill-must">MUST</span></td></tr>
+        <tr><td class="id">EL-004</td><td>Authority matrix / signature authority</td><td>CFO</td><td>Annual</td><td><span class="pill pill-must">MUST</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="page-footer">
+      <span><strong>Helios Robotics</strong> — Pre-IPO SOX 404 Readiness · Auditborb / Velocity</span>
+      <span>Page 3</span>
+    </div>
+  </div>
+
+  <!-- PAGE 4: Sample narratives -->
+  <div class="page">
+    <h1 class="section-title">Control narratives — selected</h1>
+    <p class="lede">Three representative narratives reproduced here. Full set of 47 narratives included in Appendix B.</p>
+
+    <div class="narrative-block">
+      <h4><span class="ctrl-id">FR-001</span> Revenue recognition — performance obligation review</h4>
+      <div class="nb-grid">
+        <div class="label">Process</div>
+        <div>Each new contract is logged in NetSuite within 5 business days of execution. The Controller reviews each contract over $100K monthly for ASC 606 performance-obligation allocation, comparing the contract terms to the standard allocation in the system. Discrepancies flagged require explicit Controller sign-off before booking.</div>
+        <div class="label">Frequency</div>
+        <div>Monthly</div>
+        <div class="label">Evidence</div>
+        <div>Signed allocation review form per contract; NetSuite audit log entries</div>
+        <div class="label">Test approach</div>
+        <div>Auditor selects sample of 25 contracts per quarter; verifies allocation review form exists and matches contract terms.</div>
+      </div>
+    </div>
+
+    <div class="narrative-block">
+      <h4><span class="ctrl-id">IT-001</span> Production access review</h4>
+      <div class="nb-grid">
+        <div class="label">Process</div>
+        <div>Quarterly, the IT Director exports a list of all production system accounts from Okta, AWS IAM, NetSuite, and GitHub. The list is reviewed against the active HRIS roster; departed employees are confirmed terminated; orphaned accounts are flagged for removal within 5 business days.</div>
+        <div class="label">Frequency</div>
+        <div>Quarterly</div>
+        <div class="label">Evidence</div>
+        <div>Signed access review report per system; HRIS termination tickets</div>
+        <div class="label">Test approach</div>
+        <div>Auditor selects 3 departed employees per quarter; verifies their access was terminated within 24 hours of HR notification.</div>
+      </div>
+    </div>
+
+    <div class="narrative-block" style="border-left-color: #f59e0b;">
+      <h4>
+        <span class="ctrl-id">FR-003</span> Inventory standard-cost variance review
+        <span style="float: right; font-size: 10px; padding: 2px 8px; background: #fef3c7; color: #92400e; border-radius: 3px; font-weight: 700; letter-spacing: 0.05em;">LOW CONFIDENCE</span>
+      </h4>
+      <div class="nb-grid">
+        <div class="label">Process</div>
+        <div>At quarter-end, the Controller pulls the standard-cost variance report from NetSuite. Variances >$50K or 5% trigger a written explanation from Operations. The Controller reviews explanations and either accepts or requires further investigation.</div>
+        <div class="label">Frequency</div>
+        <div>Quarterly</div>
+        <div class="label">Evidence</div>
+        <div>Variance report with annotations; explanation memos</div>
+        <div class="label">Test approach</div>
+        <div>Auditor selects 5 variance items per quarter; reviews explanation rationale and supporting documentation.</div>
+        <div class="label" style="color: #92400e;">⚠ Review note</div>
+        <div style="color: #92400e;">Variance materiality threshold ($50K / 5%) is inferred from revenue band; should be set jointly with Deloitte during walkthrough.</div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span><strong>Helios Robotics</strong> — Pre-IPO SOX 404 Readiness · Auditborb / Velocity</span>
+      <span>Page 4</span>
+    </div>
+  </div>
+
+  <!-- PAGE 5: Walkthrough plan -->
+  <div class="page">
+    <h1 class="section-title">Walkthrough plan</h1>
+    <p class="lede">Six walkthroughs sequenced against your Q1 2027 S-1 target, building from foundational close processes through to entity-level governance. Validate timing specifics with the Deloitte engagement team.</p>
+
+    <h3>S-1 timeline</h3>
+    <div class="timeline-bar-pdf">
+      <div class="timeline-marker-pdf" style="left: 0%;"></div>
+      <div class="timeline-label-pdf" style="left: 0%;"><strong>Today</strong><span>May 2026</span></div>
+      <div class="timeline-marker-pdf" style="left: 15%;"></div>
+      <div class="timeline-label-pdf" style="left: 15%;"><strong>W1 begins</strong><span>~Aug 2026</span></div>
+      <div class="timeline-marker-pdf" style="left: 60%;"></div>
+      <div class="timeline-label-pdf" style="left: 60%;"><strong>Year-1 audit</strong><span>~Q3 2026</span></div>
+      <div class="timeline-marker-pdf gray" style="left: 100%;"></div>
+      <div class="timeline-label-pdf" style="left: 100%;"><strong>S-1 filed</strong><span>Q1 2027</span></div>
+    </div>
+
+    <table style="margin-top: 16px;">
+      <thead>
+        <tr>
+          <th style="width: 40px;">#</th>
+          <th>Walkthrough</th>
+          <th style="width: 130px;">Lead attendees</th>
+          <th style="width: 90px;">Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Period-end close</strong><br><span style="font-size: 11px; color: var(--muted);">FR-007, FR-008, FR-009</span></td>
+          <td>Controller, Senior Accountant, Deloitte senior</td>
+          <td>~52w pre-S-1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Revenue recognition</strong><br><span style="font-size: 11px; color: var(--muted);">FR-001, FR-002</span></td>
+          <td>Controller, Revenue Manager, Deloitte manager</td>
+          <td>~48w pre-S-1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Inventory &amp; COGS</strong><br><span style="font-size: 11px; color: var(--muted);">FR-003, FR-004, FR-005</span></td>
+          <td>Controller, Operations Lead, Cost Accountant, Deloitte senior</td>
+          <td>~44w pre-S-1</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>ITGCs</strong><br><span style="font-size: 11px; color: var(--muted);">IT-001, IT-002, IT-004, IT-005</span></td>
+          <td>IT Director, Engineering Manager, Deloitte IT specialist</td>
+          <td>~40w pre-S-1</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Entity-level controls</strong><br><span style="font-size: 11px; color: var(--muted);">EL-001 through EL-004</span></td>
+          <td>CFO, General Counsel, Deloitte audit partner</td>
+          <td>~36w pre-S-1</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Stock-based compensation</strong><br><span style="font-size: 11px; color: var(--muted);">FR-006</span></td>
+          <td>Controller, People Ops Lead, Deloitte manager</td>
+          <td>~32w pre-S-1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-footer">
+      <span><strong>Helios Robotics</strong> — Pre-IPO SOX 404 Readiness · Auditborb / Velocity</span>
+      <span>Page 5</span>
+    </div>
+  </div>
+
+  <!-- PAGE 6: Disclaimers -->
+  <div class="page">
+    <h1 class="section-title">Disclaimers &amp; assumptions</h1>
+    <p class="lede">This document is generated by Velocity, an Auditborb beta product. Read the following before circulating internally or sharing with your audit committee.</p>
+
+    <h2>Generation methodology</h2>
+    <p>This report was generated by an AI agent using the company profile entered at <code style="font-family: monospace; font-size: 13px; background: #f3f4f6; padding: 1px 4px; border-radius: 3px;">velocity.app/setup/profile</code>. The agent used Claude Sonnet 4.5 to draft each artifact, with structured outputs and an inline assumption-citation pattern. No proprietary auditor data, methodology documents, or third-party SOX frameworks were used.</p>
+
+    <h2>Validation responsibilities</h2>
+    <p>This document is a <strong>starting point</strong>, not a finished audit-ready artifact. Before circulating:</p>
+    <ul style="font-size: 14px; line-height: 1.6; padding-left: 24px;">
+      <li>Validate firm-specific procedural specifics with your Deloitte engagement team — Velocity's walkthrough plan uses generic Big-4 methodology, flavored for Deloitte's brand, but does not claim insider knowledge of Deloitte's internal practices.</li>
+      <li>Review all narratives flagged "low confidence" with the relevant process owner — these typically require company-specific knowledge the agent could not infer from the profile.</li>
+      <li>Adjust materiality thresholds — defaults shown are inferred from your revenue band; final thresholds should be set jointly with Deloitte.</li>
+    </ul>
+
+    <h2>Assumptions cited during generation</h2>
+    <p>Each artifact in this report carries inline assumption citations. Aggregated:</p>
+    <div style="font-family: 'Inter', sans-serif; font-size: 11px; line-height: 1.8; margin-top: 8px;">
+      <span class="assumption-chip">Assumed hardware + multi-year SaaS contract mix</span>
+      <span class="assumption-chip">Assumed quarterly close cadence</span>
+      <span class="assumption-chip">Assumed contract terms >12 months</span>
+      <span class="assumption-chip">Assumed inventory is material to financials</span>
+      <span class="assumption-chip">Assumed standard costing methodology</span>
+      <span class="assumption-chip">Assumed cloud-hosted core systems</span>
+      <span class="assumption-chip">Assumed ~30% of headcount has system access</span>
+      <span class="assumption-chip">Assumed broad-based RSU program</span>
+      <span class="assumption-chip">Assumed pre-IPO equity refresh in last 12 months</span>
+      <span class="assumption-chip">Assumed monthly close cadence</span>
+      <span class="assumption-chip">Assumed &lt;5 person finance team</span>
+      <span class="assumption-chip">Variance threshold $50K / 5% inferred from revenue band</span>
+    </div>
+
+    <h2 style="margin-top: 32px;">About Velocity</h2>
+    <p>Velocity is a self-serve, AI-native pre-IPO SOX 404 setup product from Auditborb. The product exists to demonstrate that AI-native software can compress a $1-5M Big 4 advisory engagement into a 20-minute self-serve experience. Velocity is in public beta; visible iteration is part of the value proposition.</p>
+
+    <div style="margin-top: 64px; text-align: center; padding-top: 24px; border-top: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 11px; color: var(--muted);">
+      <strong>Generated by Velocity</strong> · An Auditborb beta product<br>
+      Total generation time: 18 minutes 47 seconds · May 12, 2026
+    </div>
+
+    <div class="page-footer">
+      <span><strong>Helios Robotics</strong> — Pre-IPO SOX 404 Readiness · Auditborb / Velocity</span>
+      <span>Page 6</span>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>injectGate();</script>
+</body>
+</html>

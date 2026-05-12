@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Velocity — Sarah's Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body { background: white; }
+
+    .narrative {
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.55;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .narrative em { font-style: italic; color: var(--muted); }
+    .narrative strong { font-weight: 600; }
+    .narrative .accent { color: var(--accent); font-weight: 500; }
+
+    .scroll-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .scroll-section.wide { max-width: 1100px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .scene-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .mockup {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 12px 32px -16px rgba(0,0,0,0.15);
+      font-family: var(--sans);
+      font-size: 14px;
+      margin-top: 40px;
+    }
+    .mockup-toolbar {
+      display: flex;
+      gap: 6px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+      align-items: center;
+    }
+    .mockup-toolbar .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .url-bar {
+      flex: 1;
+      background: #f3f4f6;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+      margin-left: 8px;
+    }
+
+    .annotation {
+      position: absolute;
+      background: var(--accent);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: var(--sans);
+      max-width: 180px;
+      box-shadow: 0 4px 12px -4px rgba(168, 49, 63, 0.5);
+    }
+    .annotation::before {
+      content: '';
+      position: absolute;
+      width: 0; height: 0;
+      border-style: solid;
+    }
+
+    .option-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .changelog-entry {
+      display: flex;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--sans);
+    }
+    .changelog-entry:last-child { border-bottom: none; }
+    .changelog-week {
+      flex-shrink: 0;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: monospace;
+      min-width: 90px;
+      padding-top: 2px;
+    }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: 64px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 16px 0 24px;
+    }
+    .hero p { font-size: 20px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    .stat .num { font-family: var(--serif); font-size: 36px; font-weight: 600; line-height: 1; }
+    .stat .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="demo-nav">
+    <div>
+      <a href="index.html">← All options</a>
+      <span style="color: var(--border); margin: 0 8px;">·</span>
+      <span class="brand">Velocity</span>
+      <span class="beta-pill">BETA</span>
+    </div>
+    <div style="font-size: 12px; color: var(--muted);">Option 3 — Long-scroll narrative</div>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero reveal">
+    <div class="scene-label">A story in 90 seconds</div>
+    <h1>Meet Sarah.</h1>
+    <p>She's the Controller at Helios Robotics — a Series D industrial robotics company, 340 people, $50-200M ARR, targeting an S-1 filing in 18 months. Her CFO just told her: <em>"We need a SOX 404 program standing up. Now."</em></p>
+  </section>
+
+  <!-- ===== Section 1: Her options ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">Her options</div>
+    <div class="narrative">
+      Sarah has been here before — at her last company, the answer was Big 4. <strong>$2M.</strong> Six to twelve weeks of engagement. Calendar Tetris with audit partners. Three months before any actual document existed.
+      <br><br>
+      This time, she's looking at the landscape.
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 40px;">
+      <div class="option-card">
+        <div style="font-family: var(--serif); font-size: 32px; font-weight: 600; color: #9ca3af; width: 60px; text-align: center;">A</div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Big 4 advisory engagement (Deloitte, PwC, EY, KPMG)</div>
+          <div style="font-size: 13px; color: var(--muted);">$1-5M · 6-12 weeks · "Heavyweight" — what most pre-IPO Controllers default to.</div>
+        </div>
+      </div>
+      <div class="option-card">
+        <div style="font-family: var(--serif); font-size: 32px; font-weight: 600; color: #9ca3af; width: 60px; text-align: center;">B</div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Vanta or similar</div>
+          <div style="font-size: 13px; color: var(--muted);">$30K-$100K/yr · Optimized for SOC2/ISO. SOX 404 readiness is a stretch fit — not their core wheelhouse.</div>
+        </div>
+      </div>
+      <div class="option-card" style="border-color: var(--accent); background: #fef2f2;">
+        <div style="font-family: var(--serif); font-size: 32px; font-weight: 600; color: var(--accent); width: 60px; text-align: center;">C</div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Velocity <span class="beta-pill">BETA</span></div>
+          <div style="font-size: 13px; color: var(--muted);">$0 self-serve · 20 minutes · AI-native. Builds the same artifact format her Deloitte audit team expects.</div>
+        </div>
+      </div>
+    </div>
+    <div class="narrative" style="margin-top: 32px; font-size: 18px; color: var(--muted);">
+      Sarah picks C.
+    </div>
+  </section>
+
+  <!-- ===== Section 2: Profile ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">Minute 1 — Her company profile</div>
+    <div class="narrative">
+      She enters her company profile. The agent generates an <span class="accent">initial risk assessment</span> for her Series D hardware business in 12 seconds — calling out the obvious areas Deloitte will focus on, and citing every assumption it made.
+    </div>
+    <div class="mockup">
+      <div class="mockup-toolbar">
+        <div class="dot" style="background: #ef4444;"></div>
+        <div class="dot" style="background: #f59e0b;"></div>
+        <div class="dot" style="background: #10b981;"></div>
+        <div class="url-bar">velocity.app/setup/profile</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px;">
+        <div>
+          <div style="color: var(--muted); margin-bottom: 4px;">Company</div>
+          <div style="font-weight: 500; padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px;">Helios Robotics</div>
+        </div>
+        <div>
+          <div style="color: var(--muted); margin-bottom: 4px;">Auditor</div>
+          <div style="font-weight: 500; padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px;">Deloitte</div>
+        </div>
+        <div>
+          <div style="color: var(--muted); margin-bottom: 4px;">Stage</div>
+          <div style="font-weight: 500; padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px;">Series D · 340 employees</div>
+        </div>
+        <div>
+          <div style="color: var(--muted); margin-bottom: 4px;">S-1 target</div>
+          <div style="font-weight: 500; padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px;">Q1 2027</div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; padding: 16px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px;">
+        <div style="font-size: 11px; font-weight: 600; color: #92400e; margin-bottom: 8px;">✨ INITIAL RISK ASSESSMENT</div>
+        <div style="font-size: 12px; line-height: 1.5; color: var(--ink);">
+          Based on Helios Robotics' profile, the top SOX 404 risk areas concentrate around <strong>revenue recognition complexity</strong> (hardware + multi-year SaaS contracts), <strong>inventory and cost-of-goods controls</strong>, and <strong>ITGCs for the engineering-led tech stack</strong>…
+        </div>
+        <div style="margin-top: 8px; font-size: 11px;">
+          <span class="assumption-chip">Assumed hardware + SaaS mix</span>
+          <span class="assumption-chip">Assumed quarterly close</span>
+          <span class="assumption-chip">Assumed cloud-hosted core</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 3: Controls ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">Minutes 2-5 — Her control universe</div>
+    <div class="narrative">
+      The agent drafts a <strong>115-control universe</strong> in 90 seconds: 60 financial reporting, 40 ITGCs, 15 entity-level. Each one carries a suggested owner, a COSO mapping, a must/should priority. Sarah edits four she has strong opinions about; the agent runs a coherence pass and flags two gaps she'd missed.
+    </div>
+    <div class="mockup">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+        <div>
+          <div style="font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Financial reporting · 60</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">FR-001</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Revenue recognition — performance obligation review</div>
+            </div>
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">FR-003</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Inventory standard-cost variance review</div>
+            </div>
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">FR-006</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Stock-based comp expense accrual</div>
+            </div>
+            <div style="font-size: 10px; color: var(--muted); text-align: center; padding: 4px;">+ 57 more</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">ITGCs · 40</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">IT-001</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Production access review</div>
+            </div>
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">IT-002</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Change management — code deploy approval</div>
+            </div>
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">IT-004</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Segregation of duties — financial systems</div>
+            </div>
+            <div style="font-size: 10px; color: var(--muted); text-align: center; padding: 4px;">+ 37 more</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Entity-level · 15</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">EL-001</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Code of conduct attestation</div>
+            </div>
+            <div style="padding: 8px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 2px;"><span style="font-family: monospace; color: var(--muted);">EL-002</span><span class="priority-must">MUST</span></div>
+              <div style="font-weight: 500;">Whistleblower hotline</div>
+            </div>
+            <div style="font-size: 10px; color: var(--muted); text-align: center; padding: 4px;">+ 13 more</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; padding: 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; font-size: 12px;">
+        <strong style="color: #92400e;">⚠ Coherence check (3 items):</strong> Possible overlap between FR-001 and FR-002. Missing SoD coverage for NetSuite vendor master. Frequency mismatch on FR-006.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 4: Narratives ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">Minutes 6-12 — Her control narratives</div>
+    <div class="narrative">
+      The agent drafts <strong>47 control narratives in parallel</strong> — one per must-have control. Each carries a process description, a frequency, an evidence type, a test approach the auditor will follow. The agent <span class="accent">self-rates confidence</span> on each. Sarah jumps straight to the 8 low-confidence ones; the rest she scans and approves.
+    </div>
+    <div class="mockup">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="padding: 16px; border: 1px solid #fecaca; border-radius: 6px; background: #fef2f2;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div><span style="font-family: monospace; font-size: 11px; color: var(--muted);">FR-003</span><span style="margin-left: 6px; font-weight: 600; font-size: 13px;">Inventory standard-cost variance review</span></div>
+            <span class="confidence-pill conf-low">low confidence</span>
+          </div>
+          <div style="font-size: 12px; line-height: 1.5;">
+            <strong>Process:</strong> At quarter-end, the Controller pulls the standard-cost variance report from NetSuite. Variances >$50K or 5% trigger a written explanation from Operations…
+          </div>
+          <div style="margin-top: 8px; padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--accent);">
+            <strong>Why low confidence:</strong> Variance materiality threshold inferred from revenue band; should be set jointly with Deloitte.
+          </div>
+        </div>
+        <div style="padding: 16px; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div><span style="font-family: monospace; font-size: 11px; color: var(--muted);">FR-001</span><span style="margin-left: 6px; font-weight: 600; font-size: 13px;">Revenue recognition — performance obligation review</span></div>
+            <span class="confidence-pill conf-high">high confidence</span>
+          </div>
+          <div style="font-size: 12px; line-height: 1.5; color: var(--muted);">
+            Process drafted · Frequency: Monthly · Evidence: Signed allocation review form · Test approach: 25 contracts/quarter
+          </div>
+        </div>
+        <div style="text-align: center; font-size: 11px; color: var(--muted); padding: 8px;">+ 45 more narratives — 7 flagged for review</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 5: Walkthroughs ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">Minutes 13-16 — Her walkthrough plan</div>
+    <div class="narrative">
+      The agent sequences <strong>six walkthroughs</strong> against her Q1 2027 S-1 target, tells her who needs to be in each meeting, what documentation to have ready, and when to schedule them. The plan is firm-flavored for Deloitte — and explicit about which specifics to validate with the engagement team rather than confabulate.
+    </div>
+    <div class="mockup">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; flex-shrink: 0;">1</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <div style="font-weight: 600; font-size: 13px;">Period-end close walkthrough</div>
+              <div style="font-size: 10px; color: var(--muted);">~52 weeks before S-1</div>
+            </div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Controller · Senior Accountant · Deloitte audit senior</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; flex-shrink: 0;">2</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <div style="font-weight: 600; font-size: 13px;">Revenue recognition walkthrough</div>
+              <div style="font-size: 10px; color: var(--muted);">~48 weeks before S-1</div>
+            </div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Controller · Revenue Manager · Deloitte audit manager</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; flex-shrink: 0;">3</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <div style="font-weight: 600; font-size: 13px;">Inventory &amp; COGS walkthrough</div>
+              <div style="font-size: 10px; color: var(--muted);">~44 weeks before S-1</div>
+            </div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Controller · Operations Lead · Cost Accountant · Deloitte senior</div>
+          </div>
+        </div>
+        <div style="text-align: center; font-size: 11px; color: var(--muted); padding: 8px;">+ 3 more walkthroughs through ~32 weeks before S-1</div>
+      </div>
+      <div style="margin-top: 16px; padding: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; font-size: 11px; color: var(--accent);">
+        <strong>Disclaimer:</strong> Specific timing, documentation preferences, and meeting cadence should be validated with the Deloitte engagement team.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 6: 20 minutes later ===== -->
+  <section class="scroll-section reveal" style="text-align: center;">
+    <div class="scene-label">Minute 20</div>
+    <div style="font-family: var(--serif); font-size: 48px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin: 16px 0 24px;">
+      Twenty minutes later,<br>Sarah has this.
+    </div>
+    <div style="margin-top: 40px;">
+      <a class="btn btn-primary" href="pdf-sample.html" target="_blank" style="font-size: 15px; padding: 14px 24px;">
+        📄 View the report Sarah exports
+      </a>
+    </div>
+    <div style="margin-top: 40px;" class="stat-grid">
+      <div class="stat">
+        <div class="num">115</div>
+        <div class="lbl">Controls</div>
+      </div>
+      <div class="stat">
+        <div class="num">47</div>
+        <div class="lbl">Narratives drafted</div>
+      </div>
+      <div class="stat">
+        <div class="num">6</div>
+        <div class="lbl">Walkthroughs sequenced</div>
+      </div>
+    </div>
+    <div style="margin-top: 40px;" class="narrative">
+      She forwards the PDF to her CFO that afternoon. The CFO forwards it to the audit committee. <span class="accent">Nobody can tell it didn't come from Deloitte.</span>
+    </div>
+  </section>
+
+  <!-- ===== Section 7: Operating model proof ===== -->
+  <section class="scroll-section reveal">
+    <div class="scene-label">The thesis</div>
+    <div class="narrative">
+      The wizard isn't the product. The <strong>operating model</strong> is — a separate codebase, a small team, weekly releases, agent-led content. Velocity is Auditborb proving it can ship like this.
+    </div>
+    <div class="mockup" style="margin-top: 32px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="font-weight: 600; font-size: 14px;">Changelog</div>
+        <div style="font-size: 11px; color: var(--muted);">velocity.app/changelog</div>
+      </div>
+      <div>
+        <div class="changelog-entry">
+          <div class="changelog-week">This week</div>
+          <div>
+            <div style="font-weight: 500; font-size: 13px;">Coherence pass now surfaces SoD gaps</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Step 2 review now flags missing segregation-of-duties coverage based on your industry profile.</div>
+          </div>
+        </div>
+        <div class="changelog-entry">
+          <div class="changelog-week">Last week</div>
+          <div>
+            <div style="font-weight: 500; font-size: 13px;">Big-4-flavored walkthrough plans</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Step 4 customizes framing to your selected auditor while keeping firm-specific procedural guidance bounded.</div>
+          </div>
+        </div>
+        <div class="changelog-entry">
+          <div class="changelog-week">2 weeks ago</div>
+          <div>
+            <div style="font-weight: 500; font-size: 13px;">PDF export, v1</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">First version of the printable readiness report. Designed to look like a consulting deliverable, not a webapp export.</div>
+          </div>
+        </div>
+        <div class="changelog-entry">
+          <div class="changelog-week">3 weeks ago</div>
+          <div>
+            <div style="font-weight: 500; font-size: 13px;">Parallel narrative drafting</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Step 3 now fires 40+ narratives in parallel with self-rated confidence; low-confidence cards float to the top.</div>
+          </div>
+        </div>
+        <div class="changelog-entry">
+          <div class="changelog-week">4 weeks ago</div>
+          <div>
+            <div style="font-weight: 500; font-size: 13px;">Velocity v0.1 — public beta</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Five-step wizard live. Built in 8 days by one engineer using Claude Sonnet 4.5 + Next.js + Vercel AI SDK.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="narrative" style="margin-top: 32px; font-size: 18px; color: var(--muted);">
+      Every entry in that changelog is a real commit. The "1 engineer · 8 days" claim is verifiable.
+    </div>
+  </section>
+
+  <!-- ===== Section 8: CTA ===== -->
+  <section class="scroll-section reveal" style="text-align: center; padding: 100px 24px;">
+    <div class="narrative" style="font-size: 28px;">
+      <strong>Pre-IPO and standing up SOX?</strong><br>
+      Stop scheduling Big 4 kickoff meetings.
+    </div>
+    <div style="margin-top: 32px; display: flex; gap: 12px; justify-content: center;">
+      <a class="btn btn-primary" href="option-1.html" style="font-size: 15px; padding: 14px 24px;">
+        Try the wizard →
+      </a>
+      <a class="btn" href="#" style="font-size: 15px; padding: 14px 24px;">
+        Schedule a call
+      </a>
+    </div>
+  </section>
+
+  <footer style="padding: 40px 24px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--muted);">
+    <strong>Velocity</strong> is an Auditborb beta product · Built in &lt;1 day for this internal preview
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>injectGate();</script>
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
