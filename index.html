@@ -335,50 +335,28 @@
 
   <script src="shared.js"></script>
   <script>injectGate();</script>
-<!-- ===== Optro family footer · drop-in v2 (polished) ===== -->
+<!-- ===== Optro family footer · drop-in v3 (family-only) ===== -->
 <div class="optro-family-footer" data-self="velocity">
   <style>
-    .optro-family-footer { max-width: 980px; margin: 88px auto 0; padding: 48px 32px 32px; border-top: 1px solid #ececec; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #6b7280; -webkit-font-smoothing: antialiased; }
-    .optro-family-footer .off-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-    @media (max-width: 720px) { .optro-family-footer .off-grid { grid-template-columns: 1fr; gap: 28px; } }
-    .optro-family-footer h4 { font-size: 9.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 14px; }
-    .optro-family-footer .off-map { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .optro-family-footer .off-cell { padding: 12px 14px; background: #fafbfc; border: 1px solid #ececec; border-radius: 8px; font-size: 11px; line-height: 1.4; transition: transform 0.18s ease; }
-    .optro-family-footer .off-cell .off-tag { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9px; font-weight: 700; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase; }
-    .optro-family-footer .off-cell .off-name { color: #1f2937; margin-top: 4px; font-weight: 500; font-size: 12px; letter-spacing: -0.005em; }
-    .optro-family-footer .off-cell.active { background: #A8313F; border-color: #A8313F; }
-    .optro-family-footer .off-cell.active .off-tag, .optro-family-footer .off-cell.active .off-name { color: white; }
-    .optro-family-footer .off-coverage { font-size: 12px; color: #94a3b8; line-height: 1.65; margin-top: 16px; max-width: 460px; }
-    .optro-family-footer .off-coverage strong { color: #1f2937; font-weight: 600; }
-    .optro-family-footer .off-links { display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
+    .optro-family-footer { max-width: 980px; margin: 88px auto 0; padding: 40px 32px 24px; border-top: 1px solid #ececec; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #6b7280; -webkit-font-smoothing: antialiased; }
+    .optro-family-footer .off-block { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+    .optro-family-footer h4 { font-size: 9.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.12em; margin: 0; }
+    .optro-family-footer .off-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; font-size: 13px; }
     .optro-family-footer .off-links a { color: #4b5563; text-decoration: none; letter-spacing: -0.005em; transition: color 0.15s ease; }
     .optro-family-footer .off-links a:hover { color: #1f2937; }
-    .optro-family-footer .off-links .off-self { color: #A8313F; font-weight: 600; letter-spacing: -0.005em; }
-    .optro-family-footer .off-fineprint { margin-top: 32px; padding-top: 20px; border-top: 1px solid #ececec; display: flex; justify-content: space-between; gap: 16px; font-size: 11px; color: #94a3b8; letter-spacing: -0.002em; }
-    .optro-family-footer .off-fineprint code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0; }
+    .optro-family-footer .off-links .off-self { color: #A8313F; font-weight: 600; }
+    .optro-family-footer .off-fineprint { margin-top: 28px; padding-top: 20px; border-top: 1px solid #ececec; display: flex; justify-content: space-between; gap: 16px; font-size: 10.5px; color: #94a3b8; }
+    .optro-family-footer .off-fineprint code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0; }
+    @media (max-width: 600px) { .optro-family-footer .off-fineprint { flex-direction: column; gap: 6px; text-align: center; } }
   </style>
-  <div class="off-grid">
-    <div>
-      <h4>Scenario plan coverage · full quartet</h4>
-      <div class="off-map">
-        <div class="off-cell" data-scenario="sor"><div class="off-tag">SoR Premium</div><div class="off-name">Provenance · A–C</div></div>
-        <div class="off-cell" data-scenario="wrapper"><div class="off-tag">Wrapper Era</div><div class="off-name">Provenance · D–F · Context</div></div>
-        <div class="off-cell" data-scenario="commodity"><div class="off-tag">Commodity Hell</div><div class="off-name">Provenance · G–I · Practice</div></div>
-        <div class="off-cell" data-scenario="newcomers"><div class="off-tag">AI-Native Newcomers</div><div class="off-name">Provenance · J–L · Velocity</div></div>
-      </div>
-      <div class="off-coverage">
-        Five anonymized prototypes hedging four scenarios. <strong>Provenance</strong> bundles all four hedges in one repo; the other four are the pre-positioning surfaces.
-      </div>
-    </div>
-    <div>
-      <h4>Family</h4>
-      <div class="off-links">
-        <a href="https://sandersonboard.github.io/velocity-borb/"   data-key="velocity">Velocity — AI-native SOX setup</a>
-        <a href="https://sandersonboard.github.io/benchmark-borb/"  data-key="benchmark">Benchmark — peer comparison</a>
-        <a href="https://sandersonboard.github.io/practice-borb/"   data-key="practice">Practice — FDE engagement ops</a>
-        <a href="https://sandersonboard.github.io/context-borb/"    data-key="context">Context — MCP server</a>
-        <a href="https://sandersonboard.github.io/provenance-borb/" data-key="provenance">Provenance — audit-grade output</a>
-      </div>
+  <div class="off-block">
+    <h4>Optro family</h4>
+    <div class="off-links">
+      <a href="https://sandersonboard.github.io/velocity-borb/"   data-key="velocity">Velocity</a>
+      <a href="https://sandersonboard.github.io/benchmark-borb/"  data-key="benchmark">Benchmark</a>
+      <a href="https://sandersonboard.github.io/practice-borb/"   data-key="practice">Practice</a>
+      <a href="https://sandersonboard.github.io/context-borb/"    data-key="context">Context</a>
+      <a href="https://sandersonboard.github.io/provenance-borb/" data-key="provenance">Provenance</a>
     </div>
   </div>
   <div class="off-fineprint">
@@ -389,14 +367,6 @@
     (function () {
       var root = document.currentScript.closest('.optro-family-footer');
       var self = root.getAttribute('data-self');
-      var scenarioByKey = { velocity: 'newcomers', benchmark: 'sor', practice: 'commodity', context: 'wrapper', provenance: 'all' };
-      var cells = root.querySelectorAll('.off-cell');
-      if (self === 'provenance') {
-        cells.forEach(function (c) { c.classList.add('active'); });
-      } else {
-        var s = scenarioByKey[self];
-        cells.forEach(function (c) { if (c.getAttribute('data-scenario') === s) c.classList.add('active'); });
-      }
       var links = root.querySelectorAll('.off-links a');
       links.forEach(function (a) {
         if (a.getAttribute('data-key') === self) {
