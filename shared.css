@@ -416,3 +416,65 @@ hr, .divider {
 .scenario-tab.active, .wp-tab.active, .rpane-tab.active {
   border-bottom-color: #A8313F !important;
 }
+
+/* ==============================================================
+   DIVIDERS CONSTRAINED TO CONTENT WIDTH (no more full-bleed)
+   All nav-style dividers sit within a 980px-max content band,
+   matching the .footer/.optro-family-footer divider width.
+   Pseudo-element approach keeps the sticky white nav full-bleed
+   while drawing the hairline only within the content area.
+   ============================================================== */
+
+/* Cancel the full-bleed borders */
+.tab-nav-wrap,
+.wp-topnav,
+.demo-nav,
+.v-nav,
+.tab-bar-wrap,
+.top-nav,
+header.demo-nav {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  position: relative;
+}
+
+/* Re-draw the borders as constrained pseudo-elements.
+   Top border (only tab-nav-wrap needs it). */
+.tab-nav-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(min(100% - 64px, 980px));
+  height: 1px;
+  background: #ececec;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bottom border — every sticky nav gets one. */
+.tab-nav-wrap::after,
+.wp-topnav::after,
+.demo-nav::after,
+.v-nav::after,
+.tab-bar-wrap::after,
+.top-nav::after,
+header.demo-nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(min(100% - 64px, 980px));
+  height: 1px;
+  background: #ececec;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Practice-borb has a .top-nav-inner wrapper already constrained;
+   draw the divider at that wrapper's edge instead for crispness. */
+.top-nav .top-nav-inner {
+  position: relative;
+}
