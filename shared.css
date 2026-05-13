@@ -283,3 +283,40 @@ code, .code, .mono {
   font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   font-feature-settings: "ss01", "cv11";
 }
+
+/* ==============================================================
+   DEEP POLISH — velocity-borb signature components
+   ============================================================== */
+.brand { letter-spacing: -0.022em; }
+.beta-pill { font-size: 9.5px; letter-spacing: 0.1em; padding: 2px 9px; }
+.demo-nav { padding: 14px 28px; }
+.demo-nav a { font-size: 12.5px; letter-spacing: -0.005em; }
+
+/* Landing option cards (.opt-card lives in index.html inline styles too,
+   but if any class hits, refine it) */
+.card { box-shadow: 0 1px 2px rgba(15,23,42,0.025), 0 6px 22px rgba(15,23,42,0.04); }
+.card:hover { box-shadow: 0 4px 12px rgba(15,23,42,0.04), 0 16px 36px rgba(15,23,42,0.06); }
+
+/* Assumption / confidence chips: pill shape, lighter tone */
+.assumption-chip, .confidence-pill, .timer-pill, .pill {
+  padding: 3px 10px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+.confidence-pill { border-radius: 999px; }
+.conf-high { background: #f0faf4; color: #1a5d3a; }
+.conf-medium { background: #fff7e6; color: #92500e; }
+.conf-low { background: #fdf2f3; color: #9f1d2c; }
+
+/* Stepper refinement */
+.stepper { gap: 12px; }
+.stepper-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  font-size: 10.5px; font-weight: 700; letter-spacing: -0.005em;
+}
+
+/* Buttons: refined */
+.btn { padding: 9px 16px; font-size: 13px; letter-spacing: -0.005em; border-radius: 8px; font-weight: 500; }
+.btn-primary { box-shadow: 0 1px 2px rgba(168,49,63,0.18), 0 4px 12px rgba(168,49,63,0.18); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(168,49,63,0.22), 0 8px 20px rgba(168,49,63,0.24); }
