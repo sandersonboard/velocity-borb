@@ -1,6 +1,10 @@
 /* Velocity demo — shared styles */
 :root {
-  --accent: #A8313F;
+  --accent: #0A3655;
+  --accent-dark: #072540;
+  --accent-light: #eef4f9;
+  --alert: #A8313F;
+  --alert-light: #fef2f2;
   --ink: #1f2937;
   --muted: #6b7280;
   --border: #e5e7eb;
@@ -36,7 +40,7 @@ body {
 
 .accent { color: var(--accent); }
 .bg-accent { background: var(--accent); color: white; }
-.bg-accent:hover { background: #8e2734; }
+.bg-accent:hover { background: var(--accent-dark); }
 
 .card {
   background: var(--card);
@@ -65,7 +69,7 @@ body {
   color: white;
   border-color: var(--accent);
 }
-.btn-primary:hover { background: #8e2734; }
+.btn-primary:hover { background: var(--accent-dark); }
 .btn-primary:disabled {
   background: #d1d5db;
   border-color: #d1d5db;
@@ -201,6 +205,23 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
   font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand::before {
+  content: '';
+  width: 22px;
+  height: 14px;
+  background: url("optro-mark.svg") center/contain no-repeat;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.pip {
+  width: 28px;
+  height: 18px;
+  background: url("optro-mark.svg") center/contain no-repeat;
+  display: inline-block;
 }
 
 /* ============================================================
@@ -239,10 +260,10 @@ select:focus-visible,
 textarea:focus-visible,
 button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(168, 49, 63, 0.12);
+  box-shadow: 0 0 0 3px rgba(10, 54, 85, 0.12);
 }
 a:focus-visible {
-  outline: 2px solid rgba(168, 49, 63, 0.35);
+  outline: 2px solid rgba(10, 54, 85, 0.35);
   outline-offset: 2px;
   border-radius: 2px;
 }
